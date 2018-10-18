@@ -19,9 +19,12 @@ else:
 # Pull the hottest 10 entries from a subreddit of your choosing
 subreddit = reddit.subreddit('books')
 for submission in subreddit.hot(limit=10):
-    print(submission.title)
-    if re.search("science fiction", submission.title, re.IGNORECASE):
-        reddit.redditor('RushAndRelaxx').message('Test','it worked?')
+    print(submission.title, " comments:\n ")
+    submission.comments.replace_more(limit=None)
+    for comment in submission.comments.list():
+        print(comment.body)
+    #if re.search("science fiction", submission.title, re.IGNORECASE):
+    #    reddit.redditor('RushAndRelaxx').message('Test','it worked?')
     # Make sure you didn't already reply to this post
     if submission.id not in posts_replied_to:
 
